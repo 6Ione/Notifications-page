@@ -1,10 +1,11 @@
+
 const notifications = [
   {
     id: 1,
     name: "Mark Webber",
     avatar: "assets/images/avatar-mark-webber.webp",
     action: "reacted to your recent post",
-    target: "My first tournament today!",
+    target: "React to get crushed",
     time: "1m ago",
     unread: true
   },
@@ -13,7 +14,6 @@ const notifications = [
     name: "Angela Gray",
     avatar: "assets/images/avatar-angela-gray.webp",
     action: "followed you",
-    target: "",
     time: "5m ago",
     unread: true
   },
@@ -22,7 +22,7 @@ const notifications = [
     name: "Jacob Thompson",
     avatar: "assets/images/avatar-jacob-thompson.webp",
     action: "has joined your group",
-    target: "Chess Club",
+    target: "Mokey's Dolls 👀",
     time: "1 day ago",
     unread: true
   },
@@ -32,9 +32,22 @@ const notifications = [
     avatar: "assets/images/avatar-rizky-hasanuddin.webp",
     action: "sent your a private message",
     time: "5 days ago",
-    unread: true
+    unread: true,
+    message: "Hello"
   }
 ];
+
+document
+  .getElementById("mark-as-read")
+  .addEventListener("click", () => {
+
+    notifications.forEach(notification => {
+      notification.unread = false;
+    });
+
+    renderNotifications();
+    updateUnreadCount();
+  });
 
 function renderNotifications() {
   const notifList = document.getElementById("notif-list");
@@ -50,11 +63,19 @@ function renderNotifications() {
           <p>
             <strong>${notification.name}</strong>
             ${notification.action}
-            <span class="notif-target">${notification.target}</span>
+            ${notification.target
+            ? `<strong class="notif-target">${notification.target}</strong>`
+            : ""
+            }           
             ${notification.unread ? '<span class="unread-dot"></span>' : ''}
           </p>
 
           <span class="notif-time">${notification.time}</span>
+
+          ${notification.message
+            ? `<div class="private-message">${notification.message}</div>`
+            : ""
+            }
         </div>
       </div>
     `;
@@ -63,6 +84,7 @@ function renderNotifications() {
   });
 }
 
+
 function updateUnreadCount() {
   const unreadCount = notifications.filter(
     notification => notification.unread
@@ -70,18 +92,6 @@ function updateUnreadCount() {
 
   document.getElementById("notif-unreadCount").textContent = unreadCount;
 }
-
-document
-  .getElementById("mark-as-read")
-  .addEventListener("click", () => {
-
-    notifications.forEach(notification => {
-      notification.unread = false;
-    });
-
-    renderNotifications();
-    updateUnreadCount();
-  });
 
 renderNotifications();
 updateUnreadCount();
