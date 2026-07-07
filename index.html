@@ -15,13 +15,13 @@
 
     body {
       font-family: 'Plus Jakarta Sans', serif;
+      margin: 0;
     }
 
     .notif-container {
       display: flex;
       justify-content: center;
-      align-items: center;
-      height: 100vh;
+      padding: 60px 20px;
     }
 
     .notif-card {
@@ -51,6 +51,12 @@
       padding: 2px 12px;
       border-radius: 6px;
       font-weight: 800;
+    }
+
+    .mark-notifs {
+      background: none;
+      border: none;
+      color: hsl(219, 12%, 42%);
     }
 
     .notif-item {
@@ -93,12 +99,47 @@
   .notif-time {
       color: gray;
     }
-    @media (min-width: 768px) {
 
-    }
+    @media (max-width: 375px) {
+      body {
+        margin: 0;
+        background-color: hsl(210, 60%, 98%);
+      }
 
-    @media (min-width: 1440px) {
+      .notif-container {
+        padding: 0;
+        height: auto;
+      }
 
+      .notif-card {
+        width: 100%;
+        min-height: 100vh;
+        border-radius: 0;
+        padding: 20px 16px;
+        box-shadow: none;
+      }
+
+      .notif-header {
+        align-items: center;
+      }
+
+      .notif-item {
+        padding: 14px;
+        gap: 12px;
+      }
+
+      .notif-item img {
+        width: 40px;
+        height: 40px;
+      }
+
+      .notif-title h1 {
+        font-size: 1.3rem;
+      }
+
+      .mark-notifs {
+        font-size: 0.85rem;
+      }
     }
   </style>
 </head>

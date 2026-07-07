@@ -22,7 +22,7 @@ const notifications = [
     name: "Jacob Thompson",
     avatar: "assets/images/avatar-jacob-thompson.webp",
     action: "has joined your group",
-    target: "Mokey's Dolls 👀",
+    target: "Chess Club",
     time: "1 day ago",
     unread: true
   },
@@ -33,7 +33,33 @@ const notifications = [
     action: "sent your a private message",
     time: "5 days ago",
     unread: true,
-    message: "Hello"
+    message: "Hello, thanks for setting up the Chess Club. I've been a member for a few weeks now and I'm already having lots of fun and improving my game."
+  },
+  {
+    id: 5,
+    name: "Kimberly Smith",
+    avatar: "assets/images/avatar-kimberly-smith.webp",
+    action: "commented on your picture",
+    time: "1 week ago",
+    unread: true
+  },
+  {
+    id: 6,
+    name: "Nathan Peterson",
+    avatar: "assets/images/avatar-nathan-peterson.webp",
+    time: "2 weeks ago",
+    action: "reacted to your recent post",
+    target: "5 end-game strategies to increase your win rate",
+    unread: true
+  },
+  {
+    id: 7,
+    name: "Anna Kim",
+    avatar: "assets/images/avatar-anna-kim.webp",
+    time: "2 weeks ago",
+    action: "left the group",
+    target: "Chess Club",
+    unread: true
   }
 ];
 
@@ -49,6 +75,23 @@ document
     updateUnreadCount();
   });
 
+  document.getElementById("notif-list").addEventListener("click", (e) => {
+    const notifItem = e.target.closest(".notif-item");
+
+    if (!notifItem) return;
+    const id = Number(notifItem.dataset.id);
+    const notification = notifications.find(
+        notification => notification.id === id
+    );
+
+    if (notification.unread) {
+        notification.unread = false;
+
+        renderNotifications();
+        updateUnreadCount();
+    }
+});
+
 function renderNotifications() {
   const notifList = document.getElementById("notif-list");
 
@@ -56,7 +99,8 @@ function renderNotifications() {
 
   notifications.forEach(notification => {
     const notificationHTML = `
-      <div class="notif-item ${notification.unread ? "unread" : ""}">
+      <div class="notif-item ${notification.unread ? "unread" : ""}"
+      data-id="${notification.id}">
         <img src="${notification.avatar}" alt="${notification.name}">
         
         <div class="notif-content">
